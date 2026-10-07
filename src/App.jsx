@@ -21,8 +21,6 @@ function App() {
   }
 
   function cancelarEditarNota() {
-    setTextoDelParrafo(textoDelParrafo)
-    setEditarEnInput('')
     setEditorIsVisible(false)
   }
 
@@ -62,7 +60,7 @@ function App() {
 
             <footer className="note-footer">
               <span>Un recordatorio para mí</span>
-              <button className="edit-button" type="button" onClick={capturarTextoDeLaNotaAlInput}>
+              <button className="edit-button" type="button" onClick={capturarTextoDeLaNotaAlInput} disabled={editorIsVisible}>
                 Editar nota <span aria-hidden="true">↗</span>
               </button>
             </footer>

@@ -33,6 +33,10 @@ button {
   cursor: pointer;
 }
 
+button:disabled{
+  filter:contrast(0.5)
+}
+
 .notes-app {
   width: min(1080px, calc(100% - 48px));
   margin: 0 auto;
