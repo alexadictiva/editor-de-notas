@@ -1,4 +1,31 @@
+import { useState } from "react";
+
 function App() {
+
+  const [textoEditarEnInput, setEditarEnInput] = useState('')
+  const [textoDelParrafo, setTextoDelParrafo] = useState('No necesito aprender todo hoy. Puedo empezar con una idea pequeña y entender cómo funciona.')
+  const [editorIsVisible, setEditorIsVisible] = useState(false)
+
+  function capturarTextoDeLaNotaAlInput(){
+    setEditarEnInput(textoDelParrafo)
+    setEditorIsVisible(true)
+  }
+
+  function actualizaElValorDeTextoEnInputHastaGuardar(evento){
+    setEditarEnInput(evento.target.value)
+  }
+
+  function guardarNuevoTextoDeLaNota(){
+    setTextoDelParrafo(textoEditarEnInput)
+    setEditorIsVisible(false)
+  }
+
+  function cancelarEditarNota() {
+    setTextoDelParrafo(textoDelParrafo)
+    setEditarEnInput('')
+    setEditorIsVisible(false)
+  }
+
   return (
     <main className="notes-app">
       <header className="app-header">
@@ -31,14 +58,11 @@ function App() {
               </span>
             </div>
 
-            <p className="note-text">
-              No necesito aprender todo hoy. Puedo empezar con una idea
-              pequeña y entender cómo funciona.
-            </p>
+            <p className="note-text">{textoDelParrafo}</p>
 
             <footer className="note-footer">
               <span>Un recordatorio para mí</span>
-              <button className="edit-button" type="button">
+              <button className="edit-button" type="button" onClick={capturarTextoDeLaNotaAlInput}>
                 Editar nota <span aria-hidden="true">↗</span>
               </button>
             </footer>
@@ -49,7 +73,7 @@ function App() {
           </p>
         </section>
 
-        <section className="editor-panel" aria-labelledby="editor-title">
+        <section className={`editor-panel ${!editorIsVisible ? 'hidden' : ''}`} aria-labelledby="editor-title">
           <div className="editor-heading">
             <span className="editor-icon" aria-hidden="true">
               ✎
@@ -72,6 +96,8 @@ function App() {
             rows={7}
             placeholder="Escribe lo que tienes en mente..."
             aria-describedby="draft-help"
+            value={textoEditarEnInput}
+            onChange={actualizaElValorDeTextoEnInputHastaGuardar}
           />
 
           <p id="draft-help" className="draft-help">
@@ -79,10 +105,10 @@ function App() {
           </p>
 
           <div className="editor-actions">
-            <button className="button button-secondary" type="button">
+            <button className="button button-secondary" type="button" onClick={cancelarEditarNota}>
               Cancelar
             </button>
-            <button className="button button-primary" type="button">
+            <button className="button button-primary" type="button" onClick={guardarNuevoTextoDeLaNota}>
               Guardar nota
             </button>
           </div>

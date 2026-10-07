@@ -213,6 +213,10 @@ button {
   background-color: #ffffff;
 }
 
+.editor-panel.hidden{
+  display: none;
+}
+
 .editor-heading {
   display: flex;
   align-items: center;
